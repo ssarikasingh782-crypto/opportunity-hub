@@ -9,18 +9,24 @@ router.use('/health', healthRoutes);
 const authRoutes = require('./auth.routes');
 router.use('/auth', authRoutes);
 
-// Sub-routes for future phases will be mounted here:
+// Company routes
+const companyRoutes = require('./company.routes');
+router.use('/companies', companyRoutes);
+
+// Job routes (includes nested /:id/apply and /:id/applications)
+const jobRoutes = require('./job.routes');
+router.use('/jobs', jobRoutes);
+
+// Application routes
+const applicationRoutes = require('./application.routes');
+router.use('/applications', applicationRoutes);
+
+// Sub-routes for future phases:
 // const userRoutes = require('./user.routes');
-// const companyRoutes = require('./company.routes');
-// const jobRoutes = require('./job.routes');
-// const applicationRoutes = require('./application.routes');
 // const savedJobRoutes = require('./savedJob.routes');
 // const dashboardRoutes = require('./dashboard.routes');
 
 // router.use('/users', userRoutes);
-// router.use('/companies', companyRoutes);
-// router.use('/jobs', jobRoutes);
-// router.use('/applications', applicationRoutes);
 // router.use('/saved-jobs', savedJobRoutes);
 // router.use('/dashboard', dashboardRoutes);
 
