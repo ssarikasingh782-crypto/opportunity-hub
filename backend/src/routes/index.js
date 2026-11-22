@@ -5,8 +5,11 @@ const router = express.Router();
 const healthRoutes = require('./health.routes');
 router.use('/health', healthRoutes);
 
+// Auth routes
+const authRoutes = require('./auth.routes');
+router.use('/auth', authRoutes);
+
 // Sub-routes for future phases will be mounted here:
-// const authRoutes = require('./auth.routes');
 // const userRoutes = require('./user.routes');
 // const companyRoutes = require('./company.routes');
 // const jobRoutes = require('./job.routes');
@@ -14,7 +17,6 @@ router.use('/health', healthRoutes);
 // const savedJobRoutes = require('./savedJob.routes');
 // const dashboardRoutes = require('./dashboard.routes');
 
-// router.use('/auth', authRoutes);
 // router.use('/users', userRoutes);
 // router.use('/companies', companyRoutes);
 // router.use('/jobs', jobRoutes);
