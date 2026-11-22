@@ -16,6 +16,11 @@ const {
 } = require('../controllers/application.controller');
 
 const {
+  saveJob,
+  unsaveJob,
+} = require('../controllers/savedJob.controller');
+
+const {
   createJobValidator,
   updateJobValidator,
 } = require('../validators/job.validator');
@@ -64,8 +69,7 @@ router.delete(
   deleteJob
 );
 
-// Job application nested endpoints:
-// POST /api/v1/jobs/:id/apply (Candidate only)
+// Candidate apply endpoint: POST /api/v1/jobs/:id/apply
 router.post(
   '/:id/apply',
   protect,
@@ -74,7 +78,24 @@ router.post(
   applyToJob
 );
 
-// GET /api/v1/jobs/:id/applications (Recruiter owner or Admin)
+// Candidate save & unsave endpoints:
+// POST /api/v1/jobs/:id/save
+router.post(
+  '/:id/save',
+  protect,
+  restrictTo(ROLES.CANDIDATE),
+  saveJob
+);
+
+// DELETE /api/v1/jobs/:id/save
+router.delete(
+  '/:id/save',
+  protect,
+  restrictTo(ROLES.CANDIDATE),
+  unsaveJob
+);
+
+// Recruiter owner or Admin: GET /api/v1/jobs/:id/applications
 router.get(
   '/:id/applications',
   protect,

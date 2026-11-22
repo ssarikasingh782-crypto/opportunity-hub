@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const helmet = require('helmet');
 const morgan = require('morgan');
+const path = require('path');
 const rateLimit = require('express-rate-limit');
 const mongoSanitize = require('express-mongo-sanitize');
 
@@ -11,8 +12,12 @@ const { notFoundHandler, errorHandler } = require('./middlewares/error.middlewar
 
 const app = express();
 
-// 1. Security Headers with Helmet
-app.use(helmet());
+// 1. Security Headers with Helmet (Allowing cross-origin resource viewing for uploaded files)
+app.use(
+  helmet({
+    crossOriginResourcePolicy: { policy: 'cross-origin' },
+  })
+);
 
 // 2. CORS Configuration
 const allowedOrigin = process.env.CLIENT_URL || 'http://localhost:5173';
@@ -58,13 +63,16 @@ app.use(express.urlencoded({ extended: true, limit: '10kb' }));
 // 6. Data Sanitization against NoSQL query injection
 app.use(mongoSanitize());
 
-// 7. Health Route (accessible at top level /health and under /api/v1/health)
+// 7. Static file serving for uploads (avatars & resumes)
+app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
+
+// 8. Health Route (accessible at top level /health and under /api/v1/health)
 app.get('/health', getHealthStatus);
 
-// 8. Mount REST API Version 1
+// 9. Mount REST API Version 1
 app.use('/api/v1', apiV1Routes);
 
-// 9. Root Route
+// 10. Root Route
 app.get('/', (req, res) => {
   res.json({
     success: true,

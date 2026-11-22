@@ -9,11 +9,15 @@ router.use('/health', healthRoutes);
 const authRoutes = require('./auth.routes');
 router.use('/auth', authRoutes);
 
+// User routes (profile and admin user management)
+const userRoutes = require('./user.routes');
+router.use('/users', userRoutes);
+
 // Company routes
 const companyRoutes = require('./company.routes');
 router.use('/companies', companyRoutes);
 
-// Job routes (includes nested /:id/apply and /:id/applications)
+// Job routes (includes nested /:id/apply, /:id/save, /:id/applications)
 const jobRoutes = require('./job.routes');
 router.use('/jobs', jobRoutes);
 
@@ -21,13 +25,12 @@ router.use('/jobs', jobRoutes);
 const applicationRoutes = require('./application.routes');
 router.use('/applications', applicationRoutes);
 
-// Sub-routes for future phases:
-// const userRoutes = require('./user.routes');
-// const savedJobRoutes = require('./savedJob.routes');
-// const dashboardRoutes = require('./dashboard.routes');
+// Saved Jobs routes
+const savedJobRoutes = require('./savedJob.routes');
+router.use('/saved-jobs', savedJobRoutes);
 
-// router.use('/users', userRoutes);
-// router.use('/saved-jobs', savedJobRoutes);
-// router.use('/dashboard', dashboardRoutes);
+// Dashboard stats route
+const dashboardRoutes = require('./dashboard.routes');
+router.use('/dashboard', dashboardRoutes);
 
 module.exports = router;
