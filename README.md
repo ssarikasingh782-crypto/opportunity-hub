@@ -533,5 +533,5 @@ feature branches  ●──●──● (feature/auth-api)
 
 ## License & Project Credits
 - **Project**: College Full-Stack Capstone Web Application
-- **Author**: Ayush
+- **Author**: Sarika Singh
 - **License**: MIT
